@@ -1,0 +1,13 @@
+(przepraszam za taką formę, to po prostu kopia z "history")
+
+ZADANIE 1:
+mkdir out
+  773  ls
+  774  mkdir -p work/notes
+  775  ls
+  776  cd work
+  777  ls
+  778  cd ..
+  779  ls
+  780  grep -Ei 'error|warn' data/logs/system.log
+  781  grep -Ei 'error|warn' data/logs/system.log > out/warn_err.txt
