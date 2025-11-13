@@ -1,0 +1,1 @@
+tr -cs '[:alnum:]' '\n' < data/lorem.txt | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr | head -10 > out/top_words_lorem.txt

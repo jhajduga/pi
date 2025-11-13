@@ -1,0 +1,1 @@
+grep -Ei 'error|warn' data/logs/system.log > out/warn_err.txt
