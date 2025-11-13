@@ -1,0 +1,6 @@
+mkdir out
+mkdir -p work/notes
+grep -Ei "ERROR|WARN" data/logs/system.log > out/warn_err.txt
+
+cat data/lorem.txt | tr '[:upper:]' '[:lower:]' | tr -cs '[:alpha:]' > out/top_words_lorem.txt
+ 
