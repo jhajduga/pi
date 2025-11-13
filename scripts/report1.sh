@@ -1,7 +1,7 @@
 #!/bin/bash
 katalog="${1:-}"
 if [[ -z "$katalog" ]]; then
-  echo "$katalog istnieje date +"%F %T"" >&2
+  echo "$katalog istnieje " >&2
   exit 2
 fi
 
