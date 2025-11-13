@@ -1,0 +1,7 @@
+grep
+-Ei
+mkdir
+-p
+>
+touch
+
