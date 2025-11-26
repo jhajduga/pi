@@ -1,45 +1,131 @@
-# TASKS — Treści zadań i punktacja (50 pkt + do 3 pkt bonus)
+# **TASKS (50 pkt + 2 pkt bonus)**
 
-## Zadanie 1 — Struktura i przekierowania (10 pkt)
-1. (3 pkt) Jednym poleceniem utwórz katalog `out/`.
-2. (3 pkt) Jednym poleceniem utwórz katalog `work/notes/` (z utworzeniem brakujących rodziców).
-3. (4 pkt) Z pliku `data/logs/system.log` wypisz linie zawierające `ERROR` lub `WARN` (case-insensitive) do `out/warn_err.txt`.
-   Wymagania: filtr bez rozróżniania wielkości liter; wynik zapisany do wskazanego pliku.
+## **Zadanie 1 — Praca z plikami i filtrowaniem (10 pkt)**
 
-##### Proszę wszystkie komendy wykorzystanie w zadaniach 1 i 2 wpisać do pliku tekstowego **work/notes/nazwa.rozszerzenie**
+1. (3 pkt) Utwórz katalog `out/`
+2. (3 pkt) Utwórz katalog `work/tmp/`
+3. (4 pkt) Z pliku:
 
-## Zadanie 2 — Filtry i potoki (WYBIERZ JEDNĄ WERSJĘ, 10 pkt)
+```
+data/logs/system.log
+```
 
-**Wersja 2A (CSV):**  
-Z plików `data/csv/a.csv` i `data/csv/b.csv` przygotuj zestawienie **najczęstszych wartości** w kolumnie `value` i zapisz do `out/top_values.txt` w formacie:  
-`<liczba> <wartość>` (posortowane malejąco po liczbie).  
-- (6 pkt) Poprawny łańcuch przetwarzania (parsowanie CSV po przecinku, agregacja i sortowanie malejąco).  
-- (2 pkt) Poprawny format linii `liczba spacja wartość`.  
-- (2 pkt) Brak nagłówków w wyniku / poprawne sortowanie malejące.
+wyfiltruj **wystąpienia ERROR i WARN (case-insensitive)** i zapisz do:
 
-**Wersja 2B (tekst):**  
-Z pliku `data/lorem.txt` wypisz **Top 10 najczęstszych słów** (bez rozróżniania wielkości liter), jeden wynik na linię w formacie:  
-`<liczba> <słowo>` — i zapisz do `out/top_words_lorem.txt`.  
-- (6 pkt) Poprawny łańcuch (tokenizacja słów, normalizacja do małych liter, agregacja, sortowanie malejąco).  
-- (2 pkt) Dokładnie 10 pozycji w wyniku.  
-- (2 pkt) Poprawny format linii i sortowanie malejące po liczbie.
+```
+out/log_filtered.txt
+```
 
+Dozwolone (⟵ dokładnie to ćwiczyliśmy):
 
-## Zadanie 3 — Skrypt użytkowy (15 pkt)
-Plik: `scripts/report.sh`  
-Wywołanie: `bash scripts/report.sh <KATALOG>`
-1. (3 pkt) Gdy `<KATALOG>` nie istnieje — czytelny komunikat i zakończenie z kodem wyjścia różnym od zera.
-2. (4 pkt) Gdy istnieje — wypisz bieżącą datę/czas w formacie `YYYY-MM-DD HH:MM:SS`.
-3. (8 pkt) Wypisz TOP‑5 największych *podkatalogów* w `<KATALOG>` (format „human‑readable” dla rozmiarów).  
-   Dopuszczalne użycie `du` + `sort` + ograniczenie do 5 elementów; jeśli brak `sort -h`, użyj `du -s` + `sort -n`.
+* `grep -i`
+* potok z `|`
+* przekierowanie `>`
 
-Wymagania jakościowe: poprawne cytowanie zmiennych/ścieżek; brak „parsowania ls”. 
-**Dla pełnej liczby punktów wymagane komentarze w skrypcie tłumaczące co się w nim dzieje.**
+---
 
-Bonus (+3 pkt): przełącznik `-n` (dry‑run) — tryb podglądu.
+## **Zadanie 2 — Proste potoki + pętle (10 pkt)**
 
-## Zadanie 4 — Git workflow (15 pkt)
-1. (3 pkt) Praca na gałęzi `kolokwium/<TwojLogin>`.
-2. (6 pkt) ≥ 3 sensowne commity odzwierciedlające postęp.
-3. (3 pkt) Push i Pull Request do własnego forka (nie do upstream).
-4. (3 pkt) Krótki opis w PR (1–3 zdania): co poszło OK, co sprawiło trudność.
+Wybierz **jedną** wersję.
+
+---
+
+### ✔️ **Wersja 2A — Pętla po plikach (łatwiejsza)**
+
+Dla każdego pliku `*.txt` w katalogu `data/texts/`:
+
+* policz liczbę linii `wc -l`
+* wypisz wynik w formacie:
+
+```
+<liczba> <nazwa_pliku>
+```
+
+Wszystkie wyniki zapisz do:
+
+```
+out/text_linecount.txt
+```
+
+**Wskazówki (zgodne ze slajdami):**
+
+* użyj pętli `for f in *.txt` ()
+* sprawdź `-f "$f"` żeby pominąć katalogi
+* użyj `wc -l < "$f"` (ze slajdów)
+
+---
+
+### ✔️ **Wersja 2B — Najczęstsze słowa (tak jak ćwiczyliśmy)**
+
+Z pliku:
+
+```
+data/lorem.txt
+```
+
+1. zamień tekst na małe litery
+2. zamień każdy „ciąg znaków” na osobne słowo
+3. policz najczęstsze słowa
+4. wypisz **top 5 najczęstszych** do:
+
+```
+out/topwords.txt
+```
+
+To jest dokładnie przykład ze slajdów:
+`tr -cs`, `tr 'A-Z' 'a-z'`, `sort | uniq -c | sort -nr | head` ()
+
+---
+
+## **Zadanie 3 — Skrypt Bash: daily mini-report (15 pkt)**
+
+Utwórz skrypt:
+
+```
+scripts/daily.sh
+```
+
+Uruchamianie:
+
+```
+bash scripts/daily.sh <KATALOG>
+```
+
+### **Wymagania minimalne (tylko to, czego uczyliśmy):**
+
+1. (4 pkt) Jeżeli `<KATALOG>` nie istnieje → wypisz komunikat i zakończ kodem ≠ 0
+   (if / test `-d`, ❗ dokładnie ze slajdu — )
+
+2. (4 pkt) Wypisz:
+
+   * aktualną datę w formacie `YYYY-MM-DD HH:MM:SS`
+   * wartość `$USER`
+   * ścieżkę absolutną katalogu (`realpath "$1"`)
+
+3. (7 pkt) Wypisz prosty raport z katalogu:
+
+   * liczbę plików:
+
+     ```
+     find "$DIR" -maxdepth 1 -type f | wc -l
+     ```
+   * liczbę podkatalogów:
+
+     ```
+     find "$DIR" -maxdepth 1 -type d | wc -l
+     ```
+
+**To jest poziom „if + pętla + filtry + wc”, dokładnie jak ćwiczyliśmy.**
+
+---
+
+## **Zadanie 4 — Git (15 pkt)**
+
+1. (5 pkt) Praca na gałęzi:
+
+   ```
+   zaliczenie/<TwojLogin>
+   ```
+2. (5 pkt) Minimum 2 commity, sensowne opisy
+3. (5 pkt) Push + Pull Request do własnego forka
+
