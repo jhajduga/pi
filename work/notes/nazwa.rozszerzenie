@@ -1,0 +1,6 @@
+Zadanie 1:
+mkdir -p out
+mkdir -p work/notes
+grep -Ei 'error|warn' data/logs/system.log > out/warn_err.txt
+tr -cs '[:alnum:]' '\n'<data/lorem.txt | tr '[:upper:]' '[:lower:]'\ | sort | uniq -c | sort -nr | head -10 > out/top_words_lorem.txt
+tr -cs '[:alnum:]' '\n'<data/lorem.txt | tr '[:upper:]' '[:lower:]'\ | sort | uniq -c | sort -nr | head -10 > out/top_words_lorem.txt zadanie 2
