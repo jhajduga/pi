@@ -1,0 +1,5 @@
+zad 1
+1. mkdir out
+2. mkdir -p work/notes
+3. 
+zad 2
