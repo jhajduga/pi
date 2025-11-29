@@ -1,0 +1,2 @@
+grep, cat, tr, sort, uniq, sort, head
+mkdir
